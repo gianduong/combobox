@@ -16,7 +16,9 @@
         class="icon-input icon-dropdown-box"
         @mousedown.prevent="toggleSuggestion"
       >
-        <div class="icon icon-arrow-dropdown"></div>
+        <div class="icon icon-arrow-dropdown"
+        :class="{rotateicon:statusIcon}"
+        ></div>
       </div>
     </div>
     <div class="dropdown-content reserve" :class="{ hide: !isShow }">
@@ -48,6 +50,7 @@ export default {
   data: () => ({
     isShow: false,
     current: 0,
+    statusIcon:false,
   }),
   methods: {
     /**
@@ -56,6 +59,7 @@ export default {
     toggleSuggestion() {
       if (this.isShow) {
         this.isShow = false;
+        this.statusIcon = false;
         this.$el.querySelector("input").blur();
       } else {
         this.showSuggestion();
@@ -68,6 +72,7 @@ export default {
     showSuggestion() {
       this.$el.querySelector("input").focus();
       this.isShow = true;
+      this.statusIcon = true;
     },
 
     /**
@@ -84,6 +89,7 @@ export default {
     onBlur() {
       setTimeout(() => {
         this.isShow = false;
+        this.statusIcon = false;
       }, 200);
     },
 
@@ -120,3 +126,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.dropdown-content {
+  margin-bottom: 5px;
+}
+</style>

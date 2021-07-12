@@ -1,11 +1,11 @@
 <template>
   <div class="dropdown autocomplete">
-    <div class="dropdown-btn con-input">
+    <div class="dropdown-btn con-input combobox-style">
       <input
         type="text"
         class="input has-icon"
         :value="valueInput"
-        v-bind="inputAttributes"
+
         @focus="showSuggestion"
         @blur="onBlur"
         @keydown.up.prevent="up"
@@ -15,9 +15,13 @@
       />
       <div
         class="icon-input icon-dropdown-box"
+        
         @mousedown.prevent="toggleSuggestion"
       >
-        <div class="icon icon-arrow-dropdown"></div>
+        <div 
+        class="icon icon-arrow-dropdown"
+        :class="{rotateicon : statusClick}"
+        ></div>
       </div>
     </div>
     <div class="dropdown-content" :class="{ hide: !isShow }">
@@ -52,7 +56,7 @@ export default {
      * Giá trị khởi tạo cho input
      */
     value: {
-      type: String,
+      type: Number,
       default: null,
     },
   },
@@ -76,6 +80,10 @@ export default {
      * Giá trị của input
      */
     valueInput: "",
+    /**
+    * bien xoay theo su kien click
+    */
+    statusClick: false,
   }),
   methods: {
     /**
@@ -107,6 +115,7 @@ export default {
     showSuggestion() {
       this.$el.querySelector("input").focus();
       this.isShow = true;
+      this.statusClick = true;
     },                                                                            
     /**
      * Nhấn enter
@@ -115,6 +124,7 @@ export default {
       this.valueInput = this.suggestionData[this.current].text;
       this.isShow = false;
       this.$el.querySelector("input").blur();
+      this.statusClick = false;
     },
 
     /**
@@ -139,6 +149,7 @@ export default {
       this.current = index;
       this.isShow = false;
       this.valueInput = suggestion.text;
+      this.statusClick = false;
     },
 
     /**
@@ -147,6 +158,7 @@ export default {
     onBlur() {
       setTimeout(() => {
         this.isShow = false;
+        this.statusClick = false;
         this.$emit("blur");
       }, 300);
     },
@@ -163,6 +175,7 @@ export default {
           s.text.toLowerCase().includes(val.toLowerCase())
         );
         this.isShow = true;
+
       }
     },
   },
@@ -180,3 +193,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.dropdown-content{
+  margin-top: 5px;
+}
+</style>

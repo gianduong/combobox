@@ -28,6 +28,8 @@ export default {
 $navbar-width: 178px;
 $navbar-width-toggle: 52px;
 
+$rotate-icon: 180deg;
+
 $header-height: 48px;
 
 $icon-size: 24px;
@@ -152,7 +154,7 @@ a {
 // dropdown
 .dropdown {
   position: relative;
-
+  
   .dropdown-content {
     min-width: 100%;
     position: absolute;
@@ -193,8 +195,8 @@ a {
       cursor: pointer;
 
       &:hover:not(.active) {
-        background-color: #f4f5f6;
-        color: #2ca01c;
+        background-color: #b9c6ce;
+        color: #0c3d06;
       }
     }
   }
@@ -221,8 +223,11 @@ a {
   }
 
   .active {
-    background-color: rgb(0, 255, 76);;
+    background-color: rgb(51, 100, 65);;
     color: $color-white;
   }
+}
+.rotateicon{
+  transform: rotate(180deg);
 }
 </style>
